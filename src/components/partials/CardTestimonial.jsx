@@ -10,9 +10,7 @@ const CardTestimonial = ({ img, alt, comment, name, job }) => {
             alt={alt}
             className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
           />
-          <p className="text-gray-600 italic mb-4">
-            {comment}
-          </p>
+          <p className="text-gray-600 italic mb-4">{comment}</p>
           <h4 className="font-bold">{name}</h4>
           <p className="text-gray-500 text-sm">{job}</p>
         </div>

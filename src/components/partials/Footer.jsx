@@ -13,7 +13,7 @@ const Footer = () => {
                   src="../images/apple-touch-icon.webp"
                   alt="This blue circle image is represented as the website's logo."
                 />
-                <span className="text-xl text-white">MyApp</span>
+                <span className="text-xl font-black text-white">MyApp</span>
               </div>
 
               <p className="text-white/70 mt-4">
@@ -24,7 +24,7 @@ const Footer = () => {
 
             <div>
               <h5 className="mb-4 text-white">Quick Links</h5>
-              <ul className="space-y-2 text-white">
+              <ul className="space-y-2">
                 <li className="text-white/60 hover:text-white">
                   <a href="#">Home</a>
                 </li>
@@ -44,13 +44,13 @@ const Footer = () => {
               <h5 className="mb-4 text-white">Services</h5>
               <ul className="space-y-2">
                 <li className="text-white/60 hover:text-white">
-                  <a href="web-development">Web Development</a>
+                  <a href="#web-development">Web Development</a>
                 </li>
                 <li className="text-white/60 hover:text-white">
-                  <a href="#ui-ux-design">UI/Ux Design</a>
+                  <a href="#ui/ux-design">UI/Ux Design</a>
                 </li>
                 <li className="text-white/60 hover:text-white">
-                  <a href="seo-optimization">SEO Optimization</a>
+                  <a href="#seo-optimization">SEO Optimization</a>
                 </li>
               </ul>
             </div>
@@ -66,9 +66,9 @@ const Footer = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#9ca3af"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-map-pin-icon lucide-map-pin"
                   >
                     <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
@@ -77,6 +77,7 @@ const Footer = () => {
                 </li>
 
                 <li>
+                  <h6 className="font-medium">Address</h6>
                   <p>123 Business Avenue</p>
                   <p>San Francisco, CA 94107</p>
                 </li>
@@ -91,9 +92,9 @@ const Footer = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#9ca3af"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-phone-icon lucide-phone"
                   >
                     <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
@@ -101,6 +102,7 @@ const Footer = () => {
                 </li>
 
                 <li>
+                  <h6 className="font-medium">Phone</h6>
                   <p>+1 (555) 123-4567</p>
                 </li>
               </ul>
@@ -114,9 +116,9 @@ const Footer = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#9ca3af"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-mail-icon lucide-mail"
                   >
                     <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
@@ -125,21 +127,21 @@ const Footer = () => {
                 </li>
 
                 <li>
+                  <h6 className="font-medium">Email</h6>
                   <p>hello@myapp.com</p>
                 </li>
               </ul>
             </div>
           </div>
+
           <div className="flex flex-col items-center justify-between py-8 text-white/70 md:flex-row">
-            <small className="text-white/90">
-              &copy; 2025 MyApp. All rights reserved
-            </small>
+            <small>&copy; 2025 MyApp. All rights reserved</small>
             <ul className="flex gap-5 mt-3 md:mt-0">
               <li className="text-white/60 hover:text-white cursor-pointer">
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 512 512"
                   className="h-6 w-6"
                   height="1em"
@@ -154,7 +156,7 @@ const Footer = () => {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 512 512"
                   className="h-6 w-6"
                   height="1em"
@@ -169,7 +171,7 @@ const Footer = () => {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 448 512"
                   className="h-6 w-6"
                   height="1em"
@@ -184,7 +186,7 @@ const Footer = () => {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 448 512"
                   className="h-6 w-6"
                   height="1em"
