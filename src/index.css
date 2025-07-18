@@ -35,7 +35,7 @@
     @apply overflow-x-hidden font-poppins text-black/80 text-base;
   }
   .container {
-    @apply max-w-7xl w-full mx-auto px-4;
+    @apply max-w-7xl w-full mx-auto md:px-4 lg:px-0;
   }
   h1 {
     @apply text-[clamp(2rem,_6vw,_3rem)] font-bold;
@@ -58,6 +58,13 @@
 }
 
 @layer components {
+  .page-container {
+    @apply flex flex-col min-h-screen;
+  }
+  .content-wrap {
+    /* @apply flex-1 */
+    flex: 1;
+  }
   .headerNav ul li:hover {
     @apply text-blue-500;
   }

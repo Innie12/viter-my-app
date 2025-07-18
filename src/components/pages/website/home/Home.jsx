@@ -10,16 +10,19 @@ import Footer from '../../../partials/Footer'
 const Home = () => {
   return (
     <>
-    <Header/>
-    <Banner/>
-    <Services/>
-    <About/>
-    <Testimonials/>
-    <Contact/>
-    <Footer/>
-    
+      <div className="page-container">
+        <div className="content-wrap">
+          <Header />
+          <Banner />
+          <Services />
+          <About />
+          <Testimonials />
+          <Contact />
+        </div>
+        <Footer />
+      </div>
     </>
-  )
+  );
 }
 
 export default Home
