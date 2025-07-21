@@ -1,13 +1,13 @@
 import React from "react";
 
-const CardServices = ({ img, alt, title, description, btn }) => {
+const CardServices = ({ item }) => {
   return (
     <>
-      <div className="card">
-        <img src={img} alt={alt} />
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <a href="#">{btn} &rarr;</a>
+      <div id={item.web_services_aid} className="card">
+        <img src={item.web_services_image} alt={item.web_services_image} />
+        <h3>{item.web_services_name}</h3>
+        <p>{item.web_services_description}</p>
+        <a href={item.web_services_link}>{item.web_services_text_url} &rarr;</a>
       </div>
     </>
   );

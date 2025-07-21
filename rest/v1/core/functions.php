@@ -1,12 +1,7 @@
 <?php
 require 'Database.php';
 require 'Response.php';
-require '../models/Test.php';
 
-$conn = null;
-$conn = checkDatabaseConnection();
-
-$test = new Test($conn);
 
 function checkDatabaseConnection()
 {
@@ -76,12 +71,24 @@ function checkQuery($query, $msg)
         exit;
     }
 }
+
+function sendResponse($result)
+{
+    $response = new Response();
+    $response->setSuccess(true);
+    $response->setStatusCode(200);
+    $response->setData($result);
+    $response->send();
+}
+
+
 function checkReadAll($object)
 {
     $query = $object->readAll();
-    checkQuery($query, "There's comething wrong with models." );
+    checkQuery($query, "There's comething wrong with models.");
     return $query;
 }
+ 
 
 // $conn = null;
 // $conn = checkDatabaseConnection();
