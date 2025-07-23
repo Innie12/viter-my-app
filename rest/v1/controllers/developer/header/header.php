@@ -5,7 +5,7 @@ require '../../../core/header.php';
 // USE NEEDED FUNCTIONS
 require '../../../core/functions.php';
 // USE MODELS
-require '../../../models/developer/web-services/WebServices.php';
+require '../../../models/developer/header/Header.php';
 // GET PAYLOAD
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);

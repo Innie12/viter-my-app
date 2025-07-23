@@ -1,7 +1,25 @@
 import { useState } from "react";
+import ModalAddHeader from "./ModalAddHeader";
+import { apiVersion } from "../../../../helpers/function-general";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalHeader, setIsModalHeader] = React.useState(false);
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: dataServices,
+  } = useQueryData(
+    `${apiVersion}/controllers/developer/header/Header.php`,
+    "get",
+    "header"
+  );
+
+  const handleAdd = () => {
+    setIsModalHeader(true);
+  };
 
   return (
     <header id="header" className="bg-white relative shadow-md w-full">
@@ -100,8 +118,21 @@ const Header = () => {
           >
             Contact
           </a>
+          <div className="absolute right-0 top-1/3">
+            <div className="flex items-center gap-x-3">
+              <button
+                className="flex items-center gap-2 hover:underline hover:text-primary"
+                type="button"
+                onClick={handleAdd}
+              >
+                <FaPlus className="size-3" />
+                Add
+              </button>
+            </div>
+          </div>
         </div>
       )}
+      {isModalHeader && <ModalAddHeader setIsModal={setIsModalHeader} />}
     </header>
   );
 };
