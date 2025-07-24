@@ -114,16 +114,16 @@ const Contact = () => {
               </ul>
             </div>
 
-            <form className="bg-gray-50 rounded-xl p-8 h-fit md:w-1/2">
-              <div>
+            <form className="contact bg-gray-50 rounded-xl p-8 h-fit md:w-1/2">
+              <div className="contact relative">
                 <label>Full Name</label>
                 <input type="text" />
               </div>
-              <div>
+              <div className="contact relative">
                 <label>Email Address</label>
                 <input type="text" />
               </div>
-              <div>
+              <div className="contact relative">
                 <label>Message</label>
                 <textarea rows="4"></textarea>
               </div>

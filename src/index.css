@@ -89,7 +89,7 @@
     @apply absolute z-10 text-xs transform translate-x-2 -translate-y-6 bg-transparent top-4 text-dark;
   }
   span.error-show {
-    @apply text-[9px] text-red-600 absolute -bottom-3.5 right-0;
+    @apply text-[9px] text-red-600 absolute -bottom-6 right-0;
   }
 }
 
@@ -173,12 +173,14 @@
   .tns-nav button.tns-nav-active {
     @apply bg-blue-500;
   }
-  form input,
-  form textarea {
+
+  form.contact input,
+  form.contact textarea {
     @apply w-full px-4 py-3 border border-black/30 rounded-lg 
     focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-2 focus:outline-blue-500
     mt-3 mb-6;
   }
+
   .modal__wrapper,
   .backdrop:last-of-type {
     @apply last-of-type:bg-black/30;
@@ -200,5 +202,17 @@
   }
   .btn-modal-cancel:disabled {
     @apply opacity-50 hover:bg-white hover:text-dark hover:border-gray-300;
+  }
+}
+
+@layer utilities {
+  .tooltip {
+    @apply relative p-1 bg-transparent leading-none z-20;
+  }
+  .tooltip:after {
+    @apply content-[attr(data-tooltip)] absolute -translate-x-1/2 bottom-full -top-6 bg-dark/80 text-white p-1 rounded-sm h-fit leading-none z-20 text-center opacity-0 text-[10px] pointer-events-none transition ease-in-out scale-0 duration-75 left-1/2;
+  }
+  .tooltip:hover::after {
+    @apply opacity-100 scale-100;
   }
 }

@@ -1,21 +1,10 @@
-import { useState } from "react";
+import React from "react";
+import { HiPencil } from "react-icons/hi";
 import ModalAddHeader from "./ModalAddHeader";
-import { apiVersion } from "../../../../helpers/function-general";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isModalHeader, setIsModalHeader] = React.useState(false);
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: dataServices,
-  } = useQueryData(
-    `${apiVersion}/controllers/developer/header/Header.php`,
-    "get",
-    "header"
-  );
 
   const handleAdd = () => {
     setIsModalHeader(true);
@@ -31,7 +20,7 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex space-x-6 items-center">
           <a
             href="#"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -48,6 +37,15 @@ const Header = () => {
           <a href="#contact" className="hover:text-blue-500">
             Contact
           </a>
+          <button
+            className="tooltip"
+            data-tooltip="Edit"
+            type="button"
+            // onClick={() => handleAdd (data,values)} other syntax
+            onClick={handleAdd}
+          >
+            <HiPencil className="bg-primary text-white size-6 p-1 border transition-all ease-in-out duration-200 rounded-full" />
+          </button>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -118,18 +116,6 @@ const Header = () => {
           >
             Contact
           </a>
-          <div className="absolute right-0 top-1/3">
-            <div className="flex items-center gap-x-3">
-              <button
-                className="flex items-center gap-2 hover:underline hover:text-primary"
-                type="button"
-                onClick={handleAdd}
-              >
-                <FaPlus className="size-3" />
-                Add
-              </button>
-            </div>
-          </div>
         </div>
       )}
       {isModalHeader && <ModalAddHeader setIsModal={setIsModalHeader} />}

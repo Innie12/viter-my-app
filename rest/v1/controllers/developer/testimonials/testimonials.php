@@ -1,10 +1,7 @@
 <?php
-// import header
 require '../../../core/header.php';
-// import functions
 require '../../../core/functions.php';
-// import mysql
-require '../../../models/developer/header/Header.php';
+require '../../../models/developer/testimonials/Testimonials.php';
 
 $body = file_get_contents("php://input");
 // body->header_name;

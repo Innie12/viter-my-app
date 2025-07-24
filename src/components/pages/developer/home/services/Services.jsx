@@ -60,8 +60,7 @@ const Services = () => {
           </div>
         </div>
       </section>
-
-      {isModalServices && <ModalAddServices setIsModal={setIsModalServices} />}
+      {isModalServices && <ModalAddServices setIsModal={setIsModalServices} />};
     </>
   );
 };

@@ -1,71 +1,37 @@
 import React from "react";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import CardTestimonial from "../../../../partials/CardTestimonial";
+import { FaPlus } from "react-icons/fa";
+import ModalAddTestimonials from "./ModalAddTestimonials";
 
 const Testimonials = () => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [isModalTestimonials, setIsModalTestimonials] = React.useState(false);
+  const handleAdd = () => {
+    setIsModalTestimonials(true);
+  };
+
   return (
     <>
-      {/* <section class="bg-gray-50 py-12">
-        <div class="container">
-          <h2 class="title text-center">Client Testimonials</h2>
-          <div class="max-w-3xl mx-auto">
-            <div class="testimonialsSlider">
-              <CardTestimonial
-                img={"./images/testimonials-1.webp"}
-                alt={"Sarah Johnson Image"}
-                comment={
-                  "The team delivered our project ahead of schedule with exceptional quality. Our online sales increased by 120% within three months!"
-                }
-                name={"Sarah Johnson"}
-                job={"Sarah Johnson Image"}
-              />
-              <CardTestimonial
-                img={"./images/testimonials-2.webp"}
-                alt={"Michael Chen Image"}
-                comment={
-                  "From design to deployment, their attention to detail was impressive. They became true partners in our digital transformation journey."
-                }
-                name={"Michael Chen"}
-                job={"CEO, StartupHub"}
-              />
-              <CardTestimonial
-                img={"./images/testimonials-3.webp"}
-                alt={"Emma Rodriguez Image"}
-                comment={
-                  "Their SEO strategy tripled our organic traffic in 6 months. We've seen a dramatic improvement in lead quality and conversion rates."
-                }
-                name={"Emma Rodriguez"}
-                job={"CMO, GrowthSolutions"}
-              />
-
-            </div>
-            <div id="controls" class="relative">
-              <a class="prev">
-                <div class="absolute bottom-40 -left-5 transform -translate-y-1/2 z-30">
-                  <button class="bg-white shadow-md size-10 rounded-full flex items-center justify-center text-2xl text-black/90 hover:text-black/80">
-                    &lt;
-                  </button>
-                </div>
-              </a>
-              <a class="next">
-                <div class="absolute bottom-40 -right-5 transform -translate-y-1/2 z-30">
-                  <button class="bg-white shadow-md size-10 rounded-full flex items-center justify-center text-2xl text-black/90 hover:text-black/80">
-                    &gt;
-                  </button>
-                </div>
-              </a>
-            </div>
-            <div class="tns-nav"></div>
-          </div>
-        </div>
-      </section> */}
       <section id="testimonials" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Client Testimonials
-          </h2>
-
+          <div className="relative w-full">
+            <div className="text-center mb-12">
+              <h2 className="title">Client Testimonials</h2>
+            </div>
+            <div className="absolute right-0 top-1/3">
+              <div className="flex items-center gap-x-3">
+                <button
+                  className="flex items-center gap-2 hover:underline hover:text-primary"
+                  type="button"
+                  onClick={handleAdd}
+                >
+                  <FaPlus className="size-3" />
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
           {/* Testimonial Slider */}
           <div className="relative max-w-4xl mx-auto">
             {/* slides */}
@@ -141,6 +107,9 @@ const Testimonials = () => {
             </div>
           </div>
         </div>
+        {isModalTestimonials && (
+          <ModalAddTestimonials setIsModal={setIsModalTestimonials} />
+        )}
       </section>
     </>
   );
