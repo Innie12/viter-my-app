@@ -149,6 +149,26 @@
   .card a {
     @apply text-blue-600 font-medium hover:text-blue-700;
   }
+
+  .testimonials_card{
+    @apply w-full flex-shrink-0 px-4;
+  }
+  .testimonials_wrap{
+    @apply bg-white p-8 rounded-xl shadow-md text-center;
+  }
+  .testimonials_card img{
+    @apply w-20 h-20 rounded-full mx-auto mb-4 object-cover;
+  }
+
+  .testimonials_card p{
+    @apply text-gray-600 italic mb-4;
+  }
+  .testimonials_card h4{
+    @apply font-bold;
+  }
+
+
+
   .testimonialsItem {
     @apply bg-white py-10 px-12 rounded-xl shadow-md text-center mb-4;
   }

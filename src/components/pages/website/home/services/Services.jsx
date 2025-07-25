@@ -11,7 +11,7 @@ const Services = () => {
             <p>Professional solutions tailored to boost your online presence</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {/* <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             <CardServices
               img={"./images/card-icon-web-development.webp"}
               alt={"Web Development Image"}
@@ -39,7 +39,7 @@ const Services = () => {
               }
               btn={"Get Audit"}
             />
-          </div>
+          </div> */}
         </div>
       </section>
     </>

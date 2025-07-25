@@ -37,6 +37,7 @@ const ModalAddTestimonials = ({ setIsModal }) => {
     }, 200);
   };
   const initVal = {
+    testimonials_images: "",
     testimonials_name: "",
     testimonials_position: "",
     testimonials_comment: "",
@@ -77,6 +78,14 @@ const ModalAddTestimonials = ({ setIsModal }) => {
               return (
                 <Form>
                   <div className="modal-overflow ">
+                    <div className="relative mt-3">
+                      <InputText
+                        label="Image url"
+                        name="testimonials_images"
+                        type="text"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
                     <div className="relative mt-3">
                       <InputText
                         label="Name"

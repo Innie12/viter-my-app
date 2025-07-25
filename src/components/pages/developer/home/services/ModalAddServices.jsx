@@ -8,20 +8,27 @@ import { Form, Formik } from "formik";
 import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
 import * as Yup from "yup";
 
-const ModalAddServices = ({ setIsModal }) => {
+const ModalAddServices = ({ setIsModal, itemEdit }) => {
   const [animate, setAnimate] = React.useState("translate-x-full");
-
   const queryClient = useQueryClient();
+  console.log(itemEdit); //step 7 - receive item to edit
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `${apiVersion}/controllers/developer/web-services/web-services.php`,
-        "post", //CREATE
+        //Step-11 If itemEdit is provided, update the existing service, otherwise create a new one
+        itemEdit
+          ? `${apiVersion}/controllers/developer/web-services/web-services.php?id=${itemEdit.web_services_aid}`
+          : `${apiVersion}/controllers/developer/web-services/web-services.php`,
+        itemEdit //step 12 - if itemEdit is provided, use "put" method for update
+          ? "put" //UPDATE
+          : "post", //CREATE
+
         values
       ),
     onSuccess: (data) => {
       //validate reading
-      queryClient.invalidateQueries(""); // give id for refetching data.
+      queryClient.invalidateQueries({ queryKey: ["web-services"] });
 
       if (!data.success) {
         window.prompt(data.error);
@@ -41,11 +48,12 @@ const ModalAddServices = ({ setIsModal }) => {
   };
 
   const initVal = {
-    web_services_name: "",
-    web_services_description: "",
-    web_services_image: "",
-    web_services_link: "",
-    web_services_text_url: "",
+    //step 8 - initial values for formik
+    web_services_name: itemEdit ? itemEdit.web_services_name : "",
+    web_services_description: itemEdit ? itemEdit.web_services_description : "",
+    web_services_image: itemEdit ? itemEdit.web_services_image : "",
+    web_services_link: itemEdit ? itemEdit.web_services_link : "",
+    web_services_text_url: itemEdit ? itemEdit.web_services_text_url : "",
   };
 
   const yupSchema = Yup.object({
@@ -59,7 +67,8 @@ const ModalAddServices = ({ setIsModal }) => {
   return (
     <ModalWrapper className={`${animate}`} handleClose={handleClose}>
       <div className="modal_header relative mb-4">
-        <h3 className="text-sm">Add Services</h3>
+        <h3 className="text-sm">{itemEdit ? "Edit" : "Add"} Services</h3>{" "}
+        {/* step 6 - change title based on itemEdit */}
         <button
           type="button"
           className="absolute top-0.5 right-0"
@@ -124,14 +133,21 @@ const ModalAddServices = ({ setIsModal }) => {
                 </div>
                 <div className="modal_action flex justify-end absolute w-full bottom-0 mt-6 mb-4 gap-2 left-0 px-6">
                   <button type="submit" className="btn-modal-submit">
-                    {mutation.isPending ? "Loading..." : "Add"}
+                    {mutation.isPending
+                      ? "Loading..."
+                      : itemEdit
+                      ? "Save"
+                      : "Add"}{" "}
+                    {/* step 9 - change button text based on itemEdit */}
                   </button>
                   <button
                     type="reset"
                     disabled={mutation.isPending}
                     className="btn-modal-cancel"
                     onClick={handleClose}
-                  >Cancel</button>
+                  >
+                    Cancel
+                  </button>
                 </div>
               </Form>
             );

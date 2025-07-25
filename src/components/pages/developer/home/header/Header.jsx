@@ -1,12 +1,34 @@
 import React from "react";
 import { HiPencil } from "react-icons/hi";
 import ModalAddHeader from "./ModalAddHeader";
-
+import { apiVersion } from "../../../../helpers/function-general";
+import useQueryData from "../../../../custom-hooks/useQueryData";
+import CardServices from "../../../../partials/CardServices";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isModalHeader, setIsModalHeader] = React.useState(false);
+  const [itemEdit, setItemEdit] = React.useState();
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: dataHeader,
+  } = useQueryData(
+    `${apiVersion}/controllers/developer/header/header.php`,
+    "get",
+    "header"
+  );
 
   const handleAdd = () => {
+    setItemEdit(null);
+    setIsModalHeader(true);
+  };
+
+  const handleEdit = (item) => {
+    //step 1
+    // console.log(item); //step 3 - show info in card
+    setItemEdit(item); //step 5 - save item to edit
     setIsModalHeader(true);
   };
 
@@ -21,22 +43,23 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 items-center">
-          <a
-            href="#"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="hover:text-blue-500"
-          >
-            Home
-          </a>
-          <a href="#about" className="hover:text-blue-500">
-            About
-          </a>
-          <a href="#services" className="hover:text-blue-500">
-            Services
-          </a>
-          <a href="#contact" className="hover:text-blue-500">
-            Contact
-          </a>
+          {dataHeader?.data.map((item, key) => {
+            return (
+              <div key={key}>
+                <button
+                  onClick={() => handleEdit(item)}
+                  type="button"
+                  data-tooltip="Edit"
+                  className="tooltip"
+                >
+                  <a href={item.header_link} className="hover:text-primary">
+                    {item.header_name}
+                  </a>
+                </button>
+              </div>
+            );
+          })}
+
           <button
             className="tooltip"
             data-tooltip="Edit"
@@ -118,7 +141,9 @@ const Header = () => {
           </a>
         </div>
       )}
-      {isModalHeader && <ModalAddHeader setIsModal={setIsModalHeader} />}
+      {isModalHeader && (
+        <ModalAddHeader setIsModal={setIsModalHeader} itemEdit={itemEdit} />
+      )}
     </header>
   );
 };

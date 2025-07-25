@@ -124,10 +124,19 @@ function returnSuccess($model, $name, $query, $data = ' ')
     exit;
 }
 
+// CREATE
 function checkCreate($models)
 {
     $query = $models->create();
-    checkQuery($query, "There's comething wrong with models. (create)");
+    checkQuery($query, "There's something wrong with models. (create)");
+    return $query;
+}
+
+//step-15 (UPDATE)
+function checkUpdate($models)
+{
+    $query = $models->update();
+    checkQuery($query, "There's something wrong with models. (update)");
     return $query;
 }
 

@@ -6,10 +6,10 @@ const Testimonials = () => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   return (
     <>
-      {/* <section class="bg-gray-50 py-12">
+      <section class="bg-gray-50 py-12">
         <div class="container">
           <h2 class="title text-center">Client Testimonials</h2>
-          <div class="max-w-3xl mx-auto">
+          {/* <div class="max-w-3xl mx-auto">
             <div class="testimonialsSlider">
               <CardTestimonial
                 img={"./images/testimonials-1.webp"}
@@ -57,9 +57,9 @@ const Testimonials = () => {
               </a>
             </div>
             <div class="tns-nav"></div>
-          </div>
+          </div> */}
         </div>
-      </section> */}
+      </section>
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">

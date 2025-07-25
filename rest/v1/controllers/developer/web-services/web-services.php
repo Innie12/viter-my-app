@@ -11,13 +11,21 @@ $body = file_get_contents("php://input");
 $data = json_decode($body, true);
 
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+    //Get Read
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $result = require 'read.php';
         sendResponse($result);
         exit;
     }
+    //post Create
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = require 'create.php';
+        sendResponse($result);
+        exit;
+    }
+    //put Update 
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT') { //step-13
+        $result = require 'update.php';
         sendResponse($result);
         exit;
     }
