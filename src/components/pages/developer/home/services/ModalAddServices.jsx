@@ -31,9 +31,9 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
       queryClient.invalidateQueries({ queryKey: ["web-services"] });
 
       if (!data.success) {
-        window.prompt(data.error);
+        alert(data.error);
       } else {
-        window.prompt(`Successfully created.`);
+        alert(`Successfully created.`);
         setIsModal(false);
       }
     },
