@@ -1,14 +1,18 @@
 import React from "react";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import CardTestimonial from "../../../../partials/CardTestimonial";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import ModalAddTestimonials from "./ModalAddTestimonials";
 import { apiVersion } from "../../../../helpers/function-general";
 import useQueryData from "../../../../custom-hooks/useQueryData";
+import { FaPencil } from "react-icons/fa6";
+import ModalDeleteTestimonials from "./ModalDeleteTestimonials";
 
 const Testimonials = () => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [isModalTestimonials, setIsModalTestimonials] = React.useState(false);
+  const [isDeleteTestimonials, setIsDeleteTestimonials] = React.useState(false); //Step-1 delete
+  const [itemEdit, setItemEdit] = React.useState();
 
   const {
     isLoading,
@@ -21,7 +25,20 @@ const Testimonials = () => {
     "testimonials"
   );
   const handleAdd = () => {
+    setItemEdit(null);
     setIsModalTestimonials(true);
+  };
+
+  const handleEdit = (item) => {
+    //step 1
+    // console.log(item); //step 3 - show info in card
+    setItemEdit(item); //step 5 - save item to edit
+    setIsModalTestimonials(true);
+  };
+
+  const handleDelete = (item) => {
+    setItemEdit(item); //step 2 - save item to delete
+    setIsDeleteTestimonials(true); //step 3 - open modal for delete confirmation
   };
 
   return (
@@ -56,38 +73,30 @@ const Testimonials = () => {
                 {dataTestimonials?.data.map((item, key) => {
                   return (
                     <React.Fragment key={key}>
+                      <div key={key} className="relative">
+                        <div className="absolute top-5 flex">
+                          <button // 1ST STEP
+                            type="button"
+                            data-tooltip="Edit"
+                            className="tooltip text-white"
+                            onClick={() => handleEdit(item)}
+                          >
+                            <FaPencil className="p-1 bg-primary rounded-full" />
+                          </button>
+                          <button // 1ST STEP
+                            type="button"
+                            data-tooltip="Delete"
+                            className="tooltip text-red-600"
+                            onClick={() => handleDelete(item)}
+                          >
+                            <FaTrash className="p-1 bg-primary rounded-full" />
+                          </button>
+                        </div>
+                      </div>
                       <CardTestimonial item={item} />
                     </React.Fragment>
                   );
                 })}
-
-                {/* <CardTestimonial
-                  img={"./images/testimonials-1.webp"}
-                  alt={"Sarah Johnson"}
-                  comment={
-                    "The team delivered our project ahead of schedule with exceptional quality. Our online sales increased by 120% within three months!"
-                  }
-                  name={"Sarah Johnson"}
-                  job={"Marketing Director, TechCorp"}
-                />
-                <CardTestimonial
-                  img={"./images/testimonials-2.webp"}
-                  alt={"Michael Chen"}
-                  comment={
-                    "From design to deployment, their attention to detail was impressive. They became true partners in our digital transformation journey."
-                  }
-                  name={"Michael Chen"}
-                  job={"CEO, StartupHub"}
-                />
-                <CardTestimonial
-                  img={"./images/testimonials-3.webp"}
-                  alt={"Michael Chen"}
-                  comment={
-                    "Their SEO strategy tripled our organic traffic in 6 months. We've seen a dramatic improvement in lead quality and conversion rates."
-                  }
-                  name={"Emma Rodriguez"}
-                  job={"CMO, GrowthSolutions"}
-                /> */}
               </div>
             </div>
 
@@ -130,7 +139,18 @@ const Testimonials = () => {
           </div>
         </div>
         {isModalTestimonials && (
-          <ModalAddTestimonials setIsModal={setIsModalTestimonials} />
+          <ModalAddTestimonials
+            setIsModal={setIsModalTestimonials}
+            itemEdit={itemEdit}
+          />
+        )}
+        {/* itemEdit={itemEdit} step-6 */}
+        {isDeleteTestimonials && (
+          <ModalDeleteTestimonials
+            setIsModalDelete={setIsDeleteTestimonials}
+            mySqlEndpoint={`${apiVersion}/controllers/developer/testimonials/testimonials.php?id=${itemEdit.testimonials_aid}`}
+            queryKey="testimonials" //step 4 - pass item to delete
+          />
         )}
       </section>
     </>

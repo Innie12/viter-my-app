@@ -156,12 +156,27 @@ function checkReadAll($object)
     checkQuery($query, "There's comething wrong with models.");
     return $query;
 }
- 
 
-// $conn = null;
-// $conn = checkDatabaseConnection();
+//Step-16 (DELETE)
 
-// $test = new Test($conn);
+function checkId($id)
+{
+    $response = new Response();
+    if ($id === '' || !is_numeric($id)) {
+        $response->setSuccess(false);
+        $error = [];
+        $error['code'] = '400';
+        $error['error'] = 'ID cannot be blank or must be numeric.';
+        $error['success'] = false;
+        $response->setData($error);
+        $response->send();
+        exit;
+    }
+}
 
-// $query = checkReadAll($test);
-// getQueriedData($query);
+function checkDelete($models)
+{
+    $query = $models->delete();
+    checkQuery($query, "There's something wrong with models. (delete)");
+    return $query;
+}

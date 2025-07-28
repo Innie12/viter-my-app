@@ -67,7 +67,7 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
   return (
     <ModalWrapper className={`${animate}`} handleClose={handleClose}>
       <div className="modal_header relative mb-4">
-        <h3 className="text-sm">{itemEdit ? "Edit" : "Add"} Services</h3>{" "}
+        <h3 className="text-sm">{itemEdit ? "Edit" : "Add"} Services</h3>
         {/* step 6 - change title based on itemEdit */}
         <button
           type="button"

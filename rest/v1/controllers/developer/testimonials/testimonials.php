@@ -19,6 +19,17 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         sendResponse($result);
         exit;
     }
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT') { //step-13
+        $result = require 'update.php';
+        sendResponse($result);
+        exit;
+    }
+    //Delete = Remove a row
+    if ($_SERVER['REQUEST_METHOD'] == 'DELETE') { //step-14
+        $result = require 'delete.php';
+        sendResponse($result);
+        exit;
+    }
 }
 
 checkEndpoint();
