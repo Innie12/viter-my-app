@@ -3,7 +3,7 @@ import React from "react";
 const CardTestimonial = ({ item }) => {
   return (
     <>
-      <div id={item.testimonials_aid} className="w-full flex-shrink-0 px-4">
+      <div id={item.testimonials_aid} className="w-full p-12 flex-shrink-0 px-4">
         <div className="bg-white p-8 rounded-xl shadow-md text-center ">
           <img
             src={item.testimonials_images}

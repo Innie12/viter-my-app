@@ -1,13 +1,12 @@
 import React from "react";
-import CardServices from "../../../../partials/CardServices";
-import { FaPencil } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 
-const ServicesTable = ({
+const TestimonialsTable = ({
   isLoading,
   isFetching,
   error,
-  dataServices,
+  dataTestimonials,
   handleAdd,
   handleEdit,
   handleDelete,
@@ -19,21 +18,23 @@ const ServicesTable = ({
           <th>#</th>
           <th>Image</th>
           <th>Name</th>
-          <th>Description</th>
+          <th>Position</th>
+          <th>Comment</th>
           <th>Action</th>
         </thead>
         <tbody>
-          {dataServices?.data.map((item, index) => {
+          {dataTestimonials?.data.map((item, index) => {
             return (
               <tr>
                 <td>{index + 1}</td>
                 <img
-                  src={item.web_services_image}
-                  alt={item.web_services_image}
-                  className="w-16 h-16 object-cover rounded my-2"
+                  src={item.testimonials_images}
+                  alt={item.testimonials_images}
+                  className="w-16 h-16 rounded-full object-cover my-2"
                 />
-                <td>{item.web_services_name}</td>
-                <td>{item.web_services_description}</td>
+                <td>{item.testimonials_name}</td>
+                <td>{item.testimonials_position}</td>
+                <td>{item.testimonials_comment}</td>
                 <td>
                   <div className="flex items-center gap-x-3">
                     <button // 1ST STEP
@@ -63,4 +64,4 @@ const ServicesTable = ({
   );
 };
 
-export default ServicesTable;
+export default TestimonialsTable;

@@ -3,7 +3,7 @@ import CardServices from "../../../../partials/CardServices";
 import { FaPencil } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 
-const ServicesTable = ({
+const ContactTable = ({
   isLoading,
   isFetching,
   error,
@@ -17,9 +17,9 @@ const ServicesTable = ({
       <table>
         <thead>
           <th>#</th>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Description</th>
+          <th>Fullname</th>
+          <th>Email</th>
+          <th>Message</th>
           <th>Action</th>
         </thead>
         <tbody>
@@ -27,13 +27,9 @@ const ServicesTable = ({
             return (
               <tr>
                 <td>{index + 1}</td>
-                <img
-                  src={item.web_services_image}
-                  alt={item.web_services_image}
-                  className="w-16 h-16 object-cover rounded my-2"
-                />
-                <td>{item.web_services_name}</td>
-                <td>{item.web_services_description}</td>
+                <td>{item.contact_fullname}</td>
+                <td>{item.contact_email}</td>
+                <td>{item.contact_message}</td>
                 <td>
                   <div className="flex items-center gap-x-3">
                     <button // 1ST STEP
@@ -63,4 +59,4 @@ const ServicesTable = ({
   );
 };
 
-export default ServicesTable;
+export default ContactTable;

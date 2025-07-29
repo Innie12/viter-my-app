@@ -153,7 +153,7 @@
     @apply bg-white p-8 rounded-xl shadow-md hover:shadow-lg w-full h-full;
   }
   .card img {
-    @apply size-16 mb-6;
+    @apply size-16 mb-6 ;
   }
   .card h3 {
     @apply font-semibold mb-3;
@@ -228,7 +228,7 @@
   }
   .btn-modal-submit {
     @apply flex items-center justify-center !text-white gap-2 px-3 py-1.5 bg-accent rounded-md border-accent border hover:bg-accent hover:border-accent duration-300 ease-in w-full;
-  }
+  } 
   .btn-modal-submit:disabled {
     @apply opacity-50;
   }
