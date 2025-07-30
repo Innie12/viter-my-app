@@ -22,5 +22,8 @@ $header->header_link = checkIndex($data, 'header_link');
 $header->header_created = date("Y-m-d H:i:s");
 $header->header_updated = date("Y-m-d H:i:s");
 
+// Validation - after this go to Core Funtion - Step-1
+isNameExist($header, $header->header_name);
+
 $query = checkCreate($header);
 returnSuccess($header, 'header create', $query);

@@ -119,4 +119,19 @@ class WebServices
         }
         return $query;
     }
+    
+    public function checkName()
+    {
+        try {
+            $sql = "select web_services_name from {$this->tblWebServices} ";
+            $sql .= "where web_services_name = :web_services_name";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "web_services_name" => $this->web_services_name
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 }

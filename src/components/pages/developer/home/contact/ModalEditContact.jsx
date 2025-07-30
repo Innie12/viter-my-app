@@ -1,5 +1,4 @@
 import React from "react";
-import ModalWrapper from "../../../../partials/modal/ModalWrappper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryData } from "../../../../custom-hooks/queryData";
 import { apiVersion } from "../../../../helpers/function-general";
@@ -7,40 +6,38 @@ import { FaTimes } from "react-icons/fa";
 import { Form, Formik } from "formik";
 import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
 import * as Yup from "yup";
+import ModalWrapper from "../../../../partials/modal/ModalWrappper";
 
-const ModalAddServices = ({ setIsModal, itemEdit }) => {
+const ModalEditContact = ({ setIsModal, itemEdit }) => {
   const [animate, setAnimate] = React.useState("translate-x-full");
   const queryClient = useQueryClient();
-  console.log(itemEdit); //step 7 - receive item to edit
 
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        //Step-11 If itemEdit is provided, update the existing service, otherwise create a new one
         itemEdit
-          ? `${apiVersion}/controllers/developer/web-services/web-services.php?id=${itemEdit.web_services_aid}`
-          : `${apiVersion}/controllers/developer/web-services/web-services.php`,
-        itemEdit //step 12 - if itemEdit is provided, use "put" method for update
+          ? `${apiVersion}/controllers/developer/contact/contact.php?id=${itemEdit.contact_aid}`
+          : `${apiVersion}/controllers/developer/contact/contact.php`,
+        itemEdit
           ? "put" //UPDATE
           : "post", //CREATE
-
         values
       ),
     onSuccess: (data) => {
       //validate reading
-      queryClient.invalidateQueries({ queryKey: ["web-services"] });
+      queryClient.invalidateQueries({ queryKey: ["contact"] }); // give id for refetching data.
 
       if (!data.success) {
-        alert(data.error);
+        window.prompt(data.error);
       } else {
-        alert(`Successfully created.`);
+        alert(`Successfully edited.`);
         setIsModal(false);
       }
     },
   });
 
   const handleClose = () => {
-    if (mutation.isPending) return; // dont closer while query is ongoing
+    if (mutation.isPending) return; // don't closer while query is ongoing
     setAnimate("translate-x-full"); //animate close of modal
     setTimeout(() => {
       setIsModal(false); //close upon animation exit
@@ -48,19 +45,17 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
   };
 
   const initVal = {
-    //step 8 - initial values for formik
-    web_services_name: itemEdit ? itemEdit.web_services_name : "",
-    web_services_description: itemEdit ? itemEdit.web_services_description : "",
-    web_services_image: itemEdit ? itemEdit.web_services_image : "",
-    web_services_link: itemEdit ? itemEdit.web_services_link : "",
-    web_services_text_url: itemEdit ? itemEdit.web_services_text_url : "",
+    contact_fullname: itemEdit ? itemEdit.contact_fullname : "",
+    contact_email: itemEdit ? itemEdit.contact_email : "",
+    contact_message: itemEdit ? itemEdit.contact_message : "",
 
-    // Validation after this go to 
-    web_services_name_old: itemEdit ? itemEdit.web_services_name: "",
+    // Validation after this go to
+    contact_email_old: itemEdit ? itemEdit.contact_email : "",
   };
 
   const yupSchema = Yup.object({
-    web_services_name: Yup.string().required("required"),
+    contact_fullname: Yup.string().required("required"),
+    contact_email: Yup.string().required("required"),
   });
   //UPON USING THIS MODAL AND ALL ELEMENT TAG ARE RENDERED, RUN THIS CODE
   React.useEffect(() => {
@@ -70,8 +65,7 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
   return (
     <ModalWrapper className={`${animate}`} handleClose={handleClose}>
       <div className="modal_header relative mb-4">
-        <h3 className="text-sm">{itemEdit ? "Edit" : "Add"} Services</h3>
-        {/* step 6 - change title based on itemEdit */}
+        <h3 className="text-sm"> Edit Contact</h3>
         <button
           type="button"
           className="absolute top-0.5 right-0"
@@ -96,40 +90,24 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
                 <div className="modal-overflow ">
                   <div className="relative mt-3">
                     <InputText
-                      label="Name"
-                      name="web_services_name"
+                      label="Fullname"
+                      name="contact_fullname"
+                      type="text"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="relative mt-3">
+                    <InputText
+                      label="Email"
+                      name="contact_email"
                       type="text"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="relative mt-3">
                     <InputTextArea
-                      label="Description"
-                      name="web_services_description"
-                      type="text"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="relative mt-3">
-                    <InputText
-                      label="Image url"
-                      name="web_services_image"
-                      type="text"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="relative mt-3">
-                    <InputText
-                      label="Page Link"
-                      name="web_services_link"
-                      type="text"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="relative mt-3">
-                    <InputText
-                      label="Page Url"
-                      name="web_services_text_url"
+                      label="Message"
+                      name="contact_message"
                       type="text"
                       disabled={mutation.isPending}
                     />
@@ -141,8 +119,7 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
                       ? "Loading..."
                       : itemEdit
                       ? "Save"
-                      : "Add"}{" "}
-                    {/* step 9 - change button text based on itemEdit */}
+                      : "Add"}
                   </button>
                   <button
                     type="reset"
@@ -162,4 +139,4 @@ const ModalAddServices = ({ setIsModal, itemEdit }) => {
   );
 };
 
-export default ModalAddServices;
+export default ModalEditContact;

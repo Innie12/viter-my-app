@@ -3,7 +3,7 @@
 $conn = null;
 $conn = checkDatabaseConnection();
 // use models
-$contact = new ($conn);
+$contact = new Contact($conn);
 
 
 if (empty($_GET)) {

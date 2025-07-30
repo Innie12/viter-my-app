@@ -180,3 +180,54 @@ function checkDelete($models)
     checkQuery($query, "There's something wrong with models. (delete)");
     return $query;
 }
+
+// Validation - after this go to models > WebServices
+function checkExistence($count, $msg = '')
+{
+    if ($count > 0) {
+        $response = new response();
+        $error = [];
+        $response->setSuccess(false);
+        $error['error'] = $msg;
+        $response->setData($error);
+        $response->send();
+        exit;
+    }
+}
+
+
+// Validation
+function isNameExist($models, $name)
+{
+    // Make sure to set the property on $models before calling this function!
+    $query = $models->checkName();
+    $count = $query->rowCount();
+    checkExistence($count, "{$name} already exist");
+}
+
+// Validation after this go to update
+function compareName($models, $name_old, $name)
+{
+    if (strtolower($name_old) != strtolower($name)) {
+        isNameExist($models, $name);
+    }
+}
+
+// Validation
+function isEmailExist($models, $email)
+{
+    $query = $models->checkEmail();
+    $count = $query->rowCount();
+    checkExistence($count, "{$email} already exist");
+}
+// Validation after this go to update
+function compareEmail($models, $email_old, $email)
+{
+    if (strtolower($email_old) != strtolower($email)) {
+        isEmailExist($models, $email);
+    }
+    
+}
+
+
+

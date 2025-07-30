@@ -41,6 +41,8 @@ const ModalAddHeader = ({ setIsModal, itemEdit }) => {
   const initVal = {
     header_name: itemEdit ? itemEdit.header_name : "",
     header_link: itemEdit ? itemEdit.header_link : "",
+    // Validation
+    header_name_old: itemEdit ? itemEdit.header_name : "",
   };
   const yupSchema = Yup.object({
     header_name: Yup.string().required("required"),
@@ -52,7 +54,6 @@ const ModalAddHeader = ({ setIsModal, itemEdit }) => {
     setTimeout(() => {
       setIsModal(false);
     }, 200);
-    setIsModal(false);
   };
 
   React.useEffect(() => {
@@ -78,6 +79,7 @@ const ModalAddHeader = ({ setIsModal, itemEdit }) => {
             console.log(values);
 
             mutation.mutate(values);
+            resetForm();
           }}
         >
           {(props) => {

@@ -25,7 +25,6 @@ const ModalAddTestimonials = ({ setIsModal, itemEdit }) => {
       ),
     onSuccess: (data) => {
       queryClient.invalidateQueries(""); // give id for refetching data.
-
       if (!data.success) {
         window.prompt(data.error);
       } else {

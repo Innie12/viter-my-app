@@ -1,46 +1,100 @@
+import { Form, Formik } from "formik";
 import React from "react";
-import CardServices from "../../../../partials/CardServices";
-import { FaPencil } from "react-icons/fa6";
-import { FaTrash } from "react-icons/fa";
+import * as Yup from "yup";
+import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
+import { apiVersion } from "../../../../helpers/function-general";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryData } from "../../../../custom-hooks/queryData";
 
 const ContactList = ({
   isLoading,
   isFetching,
   error,
-  dataServices,
+  dataContact,
+  itemEdit,
   handleAdd,
-  handleEdit,
   handleDelete,
+  handleEdit,
 }) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(
+        `${apiVersion}/controllers/developer/contact/contact.php`,
+
+        "post", // CREATE
+        values
+      ),
+    onSuccess: (data) => {
+      // validate reading
+      queryClient.invalidateQueries({ queryKey: ["contact"] }); // give id for refetching data.
+
+      if (data.success) {
+        alert("Successfully created.");
+      } else {
+        alert(data.error);
+      }
+    },
+  });
+
+  const initVal = {
+    contact_fullname: "",
+    contact_email: "",
+    contact_message: "",
+  };
+
+  const yupSchema = Yup.object({
+    contact_fullname: Yup.string().required("required"),
+    contact_email: Yup.string()
+      .email("Must put a valid email")
+      .required("required"),
+    contact_message: Yup.string().required("required"),
+  });
+
   return (
     <>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {dataServices?.data.map((item, key) => {
+      <Formik
+        initialValues={initVal}
+        validationSchema={yupSchema}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          console.log(values);
+          mutation.mutate(values);
+          resetForm();
+        }}
+      >
+        {(props) => {
           return (
-            <div key={key} className="relative">
-              <div className="absolute top-5 right-3">
-                <button // 1ST STEP
-                  type="button"
-                  data-tooltip="Edit"
-                  className="tooltip text-white"
-                  onClick={() => handleEdit(item)}
-                >
-                  <FaPencil className="p-1 bg-primary rounded-full" />
-                </button>
-                <button // 1ST STEP
-                  type="button"
-                  data-tooltip="Delete"
-                  className="tooltip text-red-600"
-                  onClick={() => handleDelete(item)}
-                >
-                  <FaTrash className="p-1 bg-primary rounded-full" />
-                </button>
+            <Form className="contact">
+              {/* Forms */}
+              <div className="relative mb-3">
+                <InputText
+                  label="Full Name"
+                  name="contact_fullname"
+                  type="text"
+                />
               </div>
-              <CardServices item={item} />
-            </div>
+              <div className="relative mb-5">
+                <InputText label="Email" name="contact_email" type="text" />
+              </div>
+              <div className="relative mb-6 inline-block w-full">
+                <InputTextArea
+                  className="resize-none"
+                  label="Message"
+                  name="contact_message"
+                  type="text"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={mutation.isPending}
+                className="btn btn--blue"
+              >
+                Send Message
+              </button>
+            </Form>
           );
-        })}
-      </div>
+        }}
+      </Formik>
     </>
   );
 };
