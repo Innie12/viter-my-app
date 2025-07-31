@@ -7,25 +7,65 @@ import { FaList, FaPencil } from "react-icons/fa6";
 import ModalDeleteServices from "./ModalDeleteServices";
 import ServicesTable from "./ServicesTable";
 import ServicesList from "./ServicesList";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { queryDataInfinite } from "../../../../custom-hooks/queryDataInfinite";
+import { InView, useInView } from "react-intersection-observer";
 
 const Services = () => {
   const [isModalServices, setIsModalServices] = React.useState(false);
   const [isDeleteServices, setIsDeleteServices] = React.useState(false); //Step-1 delete
   const [itemEdit, setItemEdit] = React.useState(); //step 4
 
+  const [page, setPage] = React.useState(1);
+  const { ref, InView } = useInView();
+
   //step 9 - reset itemEdit when adding new service
   const [isTable, setIsTable] = React.useState(false);
 
+  // const {
+  //   isLoading,
+  //   isFetching: isFetchingDataServices,
+  //   error: errordataServices,
+  //   data: dataServices,
+  // } = useQueryData(
+  //   `${apiVersion}/controllers/developer/web-services/web-services.php`,
+  //   "get",
+  //   "web-services"
+  // );
+
+  // Loading -Create a folder in partial after this
+
   const {
-    isLoading,
-    isFetching,
+    data: result,
     error,
-    data: dataServices,
-  } = useQueryData(
-    `${apiVersion}/controllers/developer/web-services/web-services.php`,
-    "get",
-    "web-services"
-  );
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["web_services"],
+    queryFn: async ({ pageParam = 1 }) =>
+      await queryDataInfinite(
+        ``, //search functionalities
+        `${apiVersion}/controllers/developer/web-services/page.php?start=${pageParam}`, //loadmore functionalities
+        false,
+        {},
+        "post"
+      ),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total) {
+        return lastPage.page + lastPage.count;
+      }
+      return;
+    },
+  });
+
+  React.useEffect(() => {
+    if (InView) {
+      setPage((prev) => prev + 1);
+    }
+  }, [InView]);
 
   const handleAdd = () => {
     setItemEdit(null); //step-10 - reset itemEdit when adding new service
@@ -92,27 +132,41 @@ const Services = () => {
             </div>
           </div>
           {/* DELETE */}
+
+          {/* DELETE */}
           {isTable == true ? (
             <>
               <ServicesTable
-                isLoading={isLoading}
-                isFetching={isFetching}
-                error={error}
-                dataServices={dataServices}
+                // dataServices={dataServices}
                 handleAdd={handleAdd}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                result={result}
+                error={error}
+                fetchNextPage={fetchNextPage}
+                hasNextPage={hasNextPage}
+                isFetching={isFetching}
+                isFetchingNextPage={isFetchingNextPage}
+                status={status}
+                setPage={setPage}
+                page={page}
+                ref={ref}
               />
             </>
           ) : (
             <ServicesList
-              isLoading={isLoading}
-              isFetching={isFetching}
-              error={error}
-              dataServices={dataServices}
+              // dataServices={dataServices}
               handleAdd={handleAdd}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
+              // next step (add the 5 then copy paste it in servicestable)
+              result={result}
+              error={error}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetching={isFetching}
+              isFetchingNextPage={isFetchingNextPage}
+              status={status}
             />
           )}
         </div>
